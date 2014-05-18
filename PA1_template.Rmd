@@ -16,16 +16,16 @@ data <- read.table(unz('activity.zip'
 ```
 
 
-## What is mean total number of steps taken per day?
+## Mean total number of steps taken per day
 ```{r}
 steps.per.day <- tapply(data$steps, data$date, sum, na.rm=T)
 hist(steps.per.day, main='total number of steps taken each day', xlab='steps per day')
 ```
-There is the mean total number of steps taken per day: `r sprintf("%8.2f", mean(steps.per.day, na.rm =T))`.
-There is the median total number of steps taken per day: `r median(steps.per.day, na.rm =T)`.
+The mean total number of steps taken per day is  `r sprintf("%8.2f", mean(steps.per.day, na.rm =T))`,
+and the median is `r median(steps.per.day, na.rm =T)`.
 
 
-## What is the average daily activity pattern?
+## Average daily activity pattern
 ```{r}
 steps.per.interval <- aggregate(data$steps, by=list(data$interval), FUN=mean, na.rm=T)
 plot(steps.per.interval$x, type='l')
@@ -34,14 +34,12 @@ max.interval <- which.max(steps.per.interval$x)
 
 ```
 
-The 5-minute interval, on average across all the days in the dataset,
-contains the maximum number of steps: `r max.interval`-th, this one:  `r steps.per.interval$Group[max.interval]`.
+The `r max.interval`-th 5-minute interval on average across all the days in the dataset (this one:  `r steps.per.interval$Group[max.interval]`) contains the maximum number of steps: `r max.interval`-th, this one:  `r steps.per.interval$Group[max.interval]`.
 
-Devise a strategy for filling in all of the missing values in the dataset. The
-strategy does not need to be sophisticated. For example, you could use
-the mean/median for that day, or the mean for that 5-minute interval, etc.
 ## Imputing missing values
 There were `r sum(is.na(data$steps))` NA values.
+
+For filling in all of the missing values in the dataset we use the mean for that 5-minute interval.
 
 ```{r}
 rounded.value.for.interval <- function(interval) {
