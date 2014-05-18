@@ -55,8 +55,9 @@ data.tidy$steps[is.na(data$steps)] <- sapply(data$interval[is.na(data$steps)], r
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{r}
-steps.per.day.tidy <- tapply(data.tidy$steps, data.tidy$date, sum)
-hist(steps.per.day.tidy, main='total number of steps taken each day', xlab='steps per day1')
+steps.per.day.tidy <- aggregate(c(data.tidy$steps) , by=list(data.tidy$date), FUN=sum)
+names(steps.per.day.tidy) <- c('date', 'steps')
+hist(steps.per.day.tidy$steps, main='total number of steps taken each day', xlab='steps per day')
 
 ```
 There is the mean total number of steps taken per day: `r sprintf("%8.2f", mean(steps.per.day.tidy))`.
@@ -64,9 +65,19 @@ There is the median total number of steps taken per day: `r sprintf("%8.0f", med
 
 What is the impact of imputing missing data on the estimates of the total
 daily number of steps?
+```{r}
+steps.per.day.tidy$weekdays <- factor(c(
+  ifelse(weekdays(steps.per.day.tidy$date) == 'Sunday' | weekdays(steps.per.day.tidy$date) == 'Saturday'
+    , 'weekend'
+    , 'weekday')
+  ))
+```
+
 ```{r echo=FALSE, results='hide'}
 Sys.setlocale("LC_TIME", saved.locale)
 Sys.setlocale("LC_TIME", "Russian_Russia.1251") # remove this
 ```
+
+
 
 
