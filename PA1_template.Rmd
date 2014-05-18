@@ -38,14 +38,18 @@ Devise a strategy for filling in all of the missing values in the dataset. The
 strategy does not need to be sophisticated. For example, you could use
 the mean/median for that day, or the mean for that 5-minute interval, etc.
 ## Imputing missing values
+There were `r sum(is.na(data$steps))` NA values.
+
 ```{r}
+rounded.value.for.interval <- function(interval) {
+  round(steps.per.interval$x[steps.per.interval$Group.1 == interval])
+}
+
 df2 <- data
-
-
-
+df2$steps[is.na(data$steps)] <- sapply(df2$interval[is.na(data$steps)], rounded.value.for.interval)
 ```
 
-There were `r sum(is.na(data$steps))` NA values.
+
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{r}
 
