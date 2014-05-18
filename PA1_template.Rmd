@@ -81,7 +81,6 @@ xyplot(steps ~ interval  | weekdays, data = steps.per.weekdays, layout = c(1, 2)
 
 ```{r echo=FALSE, results='hide'}
 Sys.setlocale("LC_TIME", saved.locale)
-Sys.setlocale("LC_TIME", "Russian_Russia.1251") # remove this
 ```
 
 
