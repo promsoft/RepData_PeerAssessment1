@@ -17,16 +17,36 @@ data <- read.table(unz('activity.zip'
 ```{r}
 steps.per.day <- tapply(data$steps, data$date, sum, na.rm=T)
 hist(steps.per.day, main='total number of steps taken each day', xlab='steps per day')
-print(mean(steps.per.day))
-print(median(steps.per.day))
 ```
+There is the mean total number of steps taken per day: `r sprintf("%8.2f", mean(steps.per.day, na.rm =T))`.
+There is the median total number of steps taken per day: `r median(steps.per.day, na.rm =T)`.
+
 
 ## What is the average daily activity pattern?
+```{r}
+steps.per.interval <- aggregate(data$steps, by=list(data$interval), FUN=mean, na.rm=T)
+plot(steps.per.interval$x, type='l')
 
+max.interval <- which.max(steps.per.interval$x)
 
+```
 
+The 5-minute interval, on average across all the days in the dataset,
+contains the maximum number of steps: `r max.interval`-th, this one:  `r steps.per.interval$Group[max.interval]`.
+
+Devise a strategy for filling in all of the missing values in the dataset. The
+strategy does not need to be sophisticated. For example, you could use
+the mean/median for that day, or the mean for that 5-minute interval, etc.
 ## Imputing missing values
+```{r}
+df2 <- data
 
 
 
+```
+
+There were `r sum(is.na(data$steps))` NA values.
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r}
+
+```
