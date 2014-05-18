@@ -45,12 +45,20 @@ rounded.value.for.interval <- function(interval) {
   round(steps.per.interval$x[steps.per.interval$Group.1 == interval])
 }
 
-df2 <- data
-df2$steps[is.na(data$steps)] <- sapply(df2$interval[is.na(data$steps)], rounded.value.for.interval)
+data.tidy <- data
+data.tidy$steps[is.na(data$steps)] <- sapply(data$interval[is.na(data$steps)], rounded.value.for.interval)
 ```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{r}
+steps.per.day.tidy <- tapply(data.tidy$steps, data.tidy$date, sum)
+hist(steps.per.day.tidy, main='total number of steps taken each day', xlab='steps per day1')
 
 ```
+There is the mean total number of steps taken per day: `r sprintf("%8.2f", mean(steps.per.day.tidy))`.
+There is the median total number of steps taken per day: `r sprintf("%8.0f", median(steps.per.day.tidy))`.
+
+What is the impact of imputing missing data on the estimates of the total
+daily number of steps?
+

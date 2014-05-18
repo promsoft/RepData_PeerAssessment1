@@ -46,17 +46,33 @@ Devise a strategy for filling in all of the missing values in the dataset. The
 strategy does not need to be sophisticated. For example, you could use
 the mean/median for that day, or the mean for that 5-minute interval, etc.
 ## Imputing missing values
+There were 2304 NA values.
+
 
 ```r
-df2 <- data
-
-for (row. in names(steps.per.day)) {
-    
+rounded.value.for.interval <- function(interval) {
+    round(steps.per.interval$x[steps.per.interval$Group.1 == interval])
 }
+
+data.tidy <- data
+data.tidy$steps[is.na(data$steps)] <- sapply(data$interval[is.na(data$steps)], 
+    rounded.value.for.interval)
 ```
 
 
-There were 2304 NA values.
+
 ## Are there differences in activity patterns between weekdays and weekends?
 
+```r
+steps.per.day.tidy <- tapply(data.tidy$steps, data.tidy$date, sum)
+hist(steps.per.day.tidy, main = "total number of steps taken each day", xlab = "steps per day1")
+```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+
+There is the mean total number of steps taken per day: 10765.64.
+There is the median total number of steps taken per day:    10762.
+
+What is the impact of imputing missing data on the estimates of the total
+daily number of steps?
 
