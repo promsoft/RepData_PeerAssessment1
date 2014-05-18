@@ -65,8 +65,11 @@ data.tidy$steps[is.na(data$steps)] <- sapply(data$interval[is.na(data$steps)],
 ## Are there differences in activity patterns between weekdays and weekends?
 
 ```r
-steps.per.day.tidy <- tapply(data.tidy$steps, data.tidy$date, sum)
-hist(steps.per.day.tidy, main = "total number of steps taken each day", xlab = "steps per day1")
+steps.per.day.tidy <- aggregate(c(data.tidy$steps), by = list(data.tidy$date), 
+    FUN = sum)
+names(steps.per.day.tidy) <- c("date", "steps")
+hist(steps.per.day.tidy$steps, main = "total number of steps taken each day", 
+    xlab = "steps per day")
 ```
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
@@ -76,5 +79,29 @@ There is the median total number of steps taken per day:    10762.
 
 What is the impact of imputing missing data on the estimates of the total
 daily number of steps?
+
+
+
+```r
+data.tidy$weekdays <- factor(c(ifelse(weekdays(data.tidy$date) == "Sunday" | 
+    weekdays(data.tidy$date) == "Saturday", "weekend", "weekday")))
+
+steps.per.weekdays <- aggregate(data.tidy$steps, by = list(data.tidy$interval, 
+    data.tidy$weekdays), FUN = mean)
+
+names(steps.per.weekdays) <- c("interval", "weekdays", "steps")
+
+library(lattice)
+xyplot(steps ~ interval | weekdays, data = steps.per.weekdays, layout = c(1, 
+    2), type = "l")
+```
+
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7.png) 
+
+
+
+
+
+
 
 
