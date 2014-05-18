@@ -20,6 +20,11 @@ hist(steps.per.day, main = "total number of steps taken each day", xlab = "steps
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
+```r
+total.mean <- mean(steps.per.day, na.rm = T)
+total.median <- median(steps.per.day, na.rm = T)
+```
+
 The mean total number of steps taken per day is   9354.23,
 and the median is 10395.
 
@@ -43,6 +48,11 @@ max.interval <- which.max(steps.per.interval$x)
 The 104-th 5-minute interval on average across all the days in the dataset (this one:  835) contains the maximum number of steps(206.17 steps).
 
 ## Imputing missing values
+
+```r
+max.value.count <- sum(is.na(data$steps))
+```
+
 There were 2304 NA values.
 
 For filling in all of the missing values in the dataset we use the mean for that 5-minute interval.
@@ -70,7 +80,12 @@ hist(steps.per.day.tidy$steps, main = "total number of steps taken each day",
     xlab = "steps per day")
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7.png) 
+
+```r
+tidy.mean <- mean(steps.per.day.tidy$steps)
+tidy.median <- median(steps.per.day.tidy$steps)
+```
 
 The mean total number of steps taken per day is 10765.64.
 The median total number of steps taken per day is    10762.
@@ -91,7 +106,7 @@ xyplot(steps ~ interval | weekdays, data = steps.per.weekdays, layout = c(1,
     2), type = "l")
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7.png) 
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8.png) 
 
 
 

@@ -20,9 +20,11 @@ data <- read.table(unz('activity.zip'
 ```{r}
 steps.per.day <- tapply(data$steps, data$date, sum, na.rm=T)
 hist(steps.per.day, main='total number of steps taken each day', xlab='steps per day')
+total.mean <- mean(steps.per.day, na.rm =T)
+total.median <- median(steps.per.day, na.rm =T)
 ```
-The mean total number of steps taken per day is  `r sprintf("%8.2f", mean(steps.per.day, na.rm =T))`,
-and the median is `r median(steps.per.day, na.rm =T)`.
+The mean total number of steps taken per day is  `r sprintf("%8.2f", total.mean)`,
+and the median is `r total.median`.
 
 
 ## Average daily activity pattern
@@ -37,7 +39,10 @@ max.interval <- which.max(steps.per.interval$x)
 The `r max.interval`-th 5-minute interval on average across all the days in the dataset (this one:  `r steps.per.interval$Group[max.interval]`) contains the maximum number of steps(`r round(steps.per.interval$x[max.interval], 2)` steps).
 
 ## Imputing missing values
-There were `r sum(is.na(data$steps))` NA values.
+```{r}
+max.value.count <- sum(is.na(data$steps))
+```
+There were `r max.value.count` NA values.
 
 For filling in all of the missing values in the dataset we use the mean for that 5-minute interval.
 
@@ -56,10 +61,11 @@ data.tidy$steps[is.na(data$steps)] <- sapply(data$interval[is.na(data$steps)], r
 steps.per.day.tidy <- aggregate(c(data.tidy$steps) , by=list(data.tidy$date), FUN=sum)
 names(steps.per.day.tidy) <- c('date', 'steps')
 hist(steps.per.day.tidy$steps, main='total number of steps taken each day', xlab='steps per day')
-
+tidy.mean <- mean(steps.per.day.tidy$steps)
+tidy.median <- median(steps.per.day.tidy$steps)
 ```
-The mean total number of steps taken per day is `r sprintf("%8.2f", mean(steps.per.day.tidy$steps))`.
-The median total number of steps taken per day is `r sprintf("%8.0f", median(steps.per.day.tidy$steps))`.
+The mean total number of steps taken per day is `r sprintf("%8.2f", tidy.mean)`.
+The median total number of steps taken per day is `r sprintf("%8.0f", tidy.median)`.
 
 
 ```{r}
