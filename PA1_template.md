@@ -40,8 +40,7 @@ max.interval <- which.max(steps.per.interval$x)
 ```
 
 
-The 5-minute interval, on average across all the days in the dataset,
-contains the maximum number of steps: 104-th, this one:  835.
+The 104-th 5-minute interval on average across all the days in the dataset (this one:  835) contains the maximum number of steps(206.17 steps).
 
 ## Imputing missing values
 There were 2304 NA values.
@@ -61,7 +60,7 @@ data.tidy$steps[is.na(data$steps)] <- sapply(data$interval[is.na(data$steps)],
 
 
 
-## Are there differences in activity patterns between weekdays and weekends?
+## Differences in activity patterns between weekdays and weekends
 
 ```r
 steps.per.day.tidy <- aggregate(c(data.tidy$steps), by = list(data.tidy$date), 
@@ -73,11 +72,8 @@ hist(steps.per.day.tidy$steps, main = "total number of steps taken each day",
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
 
-There is the mean total number of steps taken per day: 10765.64.
-There is the median total number of steps taken per day:    10762.
-
-What is the impact of imputing missing data on the estimates of the total
-daily number of steps?
+The mean total number of steps taken per day is 10765.64.
+The median total number of steps taken per day is    10762.
 
 
 

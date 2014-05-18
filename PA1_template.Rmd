@@ -34,7 +34,7 @@ max.interval <- which.max(steps.per.interval$x)
 
 ```
 
-The `r max.interval`-th 5-minute interval on average across all the days in the dataset (this one:  `r steps.per.interval$Group[max.interval]`) contains the maximum number of steps: `r max.interval`-th, this one:  `r steps.per.interval$Group[max.interval]`.
+The `r max.interval`-th 5-minute interval on average across all the days in the dataset (this one:  `r steps.per.interval$Group[max.interval]`) contains the maximum number of steps(`r round(steps.per.interval$x[max.interval], 2)` steps).
 
 ## Imputing missing values
 There were `r sum(is.na(data$steps))` NA values.
@@ -51,18 +51,15 @@ data.tidy$steps[is.na(data$steps)] <- sapply(data$interval[is.na(data$steps)], r
 ```
 
 
-## Are there differences in activity patterns between weekdays and weekends?
+## Differences in activity patterns between weekdays and weekends
 ```{r}
 steps.per.day.tidy <- aggregate(c(data.tidy$steps) , by=list(data.tidy$date), FUN=sum)
 names(steps.per.day.tidy) <- c('date', 'steps')
 hist(steps.per.day.tidy$steps, main='total number of steps taken each day', xlab='steps per day')
 
 ```
-There is the mean total number of steps taken per day: `r sprintf("%8.2f", mean(steps.per.day.tidy$steps))`.
-There is the median total number of steps taken per day: `r sprintf("%8.0f", median(steps.per.day.tidy$steps))`.
-
-What is the impact of imputing missing data on the estimates of the total
-daily number of steps?
+The mean total number of steps taken per day is `r sprintf("%8.2f", mean(steps.per.day.tidy$steps))`.
+The median total number of steps taken per day is `r sprintf("%8.0f", median(steps.per.day.tidy$steps))`.
 
 
 ```{r}
