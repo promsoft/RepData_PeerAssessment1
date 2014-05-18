@@ -1,5 +1,8 @@
 # Reproducible Research: Peer Assessment 1
-
+```{r echo=FALSE, results='hide'}
+saved.locale <- Sys.getlocale("LC_TIME")
+Sys.setlocale("LC_TIME", "C")
+```
 
 ## Loading and preprocessing the data
 ```{r}
@@ -61,4 +64,9 @@ There is the median total number of steps taken per day: `r sprintf("%8.0f", med
 
 What is the impact of imputing missing data on the estimates of the total
 daily number of steps?
+```{r echo=FALSE, results='hide'}
+Sys.setlocale("LC_TIME", saved.locale)
+Sys.setlocale("LC_TIME", "Russian_Russia.1251") # remove this
+```
+
 

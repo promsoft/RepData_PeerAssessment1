@@ -1,6 +1,7 @@
 # Reproducible Research: Peer Assessment 1
 
 
+
 ## Loading and preprocessing the data
 
 ```r
@@ -17,7 +18,7 @@ steps.per.day <- tapply(data$steps, data$date, sum, na.rm = T)
 hist(steps.per.day, main = "total number of steps taken each day", xlab = "steps per day")
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
 There is the mean total number of steps taken per day:  9354.23.
 There is the median total number of steps taken per day: 10395.
@@ -31,7 +32,7 @@ steps.per.interval <- aggregate(data$steps, by = list(data$interval), FUN = mean
 plot(steps.per.interval$x, type = "l")
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
 
 ```r
 
@@ -68,11 +69,12 @@ steps.per.day.tidy <- tapply(data.tidy$steps, data.tidy$date, sum)
 hist(steps.per.day.tidy, main = "total number of steps taken each day", xlab = "steps per day1")
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
 
 There is the mean total number of steps taken per day: 10765.64.
 There is the median total number of steps taken per day:    10762.
 
 What is the impact of imputing missing data on the estimates of the total
 daily number of steps?
+
 
